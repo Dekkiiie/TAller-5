@@ -1,0 +1,8 @@
+# Made in Blockbench 4.7.2
+newmtl m_dbfbab2b-77a1-46dd-7f95-6681a43df833
+map_Kd Lighting_book_Texture.png 
+newmtl m_d81cf5c6-24b9-0909-2155-5dbefb957f45
+map_Kd Lighting_book_pages_Texture.png 
+newmtl m_f0439194-92de-7739-db0a-ee0b12fc474d
+map_Kd Lighting_book_page_Texture.png 
+newmtl none

@@ -11,6 +11,7 @@ public class GunBase : MonoBehaviour
     public int magazineSize, bulletsPerTap;
     public bool allowButtonHold;
     int bulletsLeft, bulletsShot;
+    //public TrailRenderer trailRenderer;
 
     //bools 
     bool shooting, readyToShoot, reloading;
@@ -72,7 +73,7 @@ public class GunBase : MonoBehaviour
         if (Physics.Raycast(fpsCam.transform.position, direction, out rayHit, range, whatIsEnemy))
         {
             Debug.Log(rayHit.collider.name);
-
+           // trailRenderer.transform.position = fpsCam.transform.forward * range;
             if (rayHit.collider.CompareTag("Enemy"))
                 rayHit.collider.GetComponent<Enemy>().TakeDamage(damage);
         }
@@ -81,8 +82,8 @@ public class GunBase : MonoBehaviour
        //StartCoroutine(camShake.Shake(camShakeDuration, camShakeMagnitude));
 
         //Graphics
-        //Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
-       // Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+       // Instantiate(bulletHoleGraphic, rayHit.point, Quaternion.Euler(0, 180, 0));
+        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         bulletsLeft--;
         bulletsShot--;
