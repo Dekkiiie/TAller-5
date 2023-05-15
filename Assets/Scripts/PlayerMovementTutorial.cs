@@ -10,7 +10,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     public Wave wave;
 
-    public GameObject gO;
+    public GameObject gO,win;
 
     public float groundDrag;
 
@@ -19,9 +19,10 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private bool isDashing = false;
 
-    public float health;
-
-
+    public int health,maxHealth;
+    AudioSource aS;
+    public AudioClip aC;
+    public Bars bars;
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
@@ -53,15 +54,16 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void Start()
     {
-
+        health = maxHealth;
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
+        aS = GetComponent<AudioSource>();
         readyToJump = true;
     }
 
     private void Update()
     {
+        bars.SetHealth(health);
         if (isDead == true) return;
 
 
@@ -166,9 +168,10 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Attack"))
+        if (other.CompareTag("End"))
         {
-
+            win.SetActive(true);
+            isDead = true;
             
 
         }
@@ -176,6 +179,8 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        aS.pitch = Random.Range(0.8f, 1.2f);
+        aS.PlayOneShot(aC);
         health -= damage;
         Debug.Log("Palyer Hit");
         if (health <= 0)

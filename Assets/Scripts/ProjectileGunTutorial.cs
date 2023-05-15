@@ -45,11 +45,15 @@ public class ProjectileGunTutorial : MonoBehaviour
     //bug fixing :D
     public bool allowInvoke = true;
 
+    AudioSource aS;
+    public AudioClip aC;
+
 
     private void Start()
     {
         bulletsLeft = magazineSize;
         bars.SetMaxHeatlh(magazineSize);
+        aS = GetComponent<AudioSource>();
     }
     private void Awake()
     {
@@ -61,6 +65,7 @@ public class ProjectileGunTutorial : MonoBehaviour
     private void Update()
     {
         if (p.isDead == true) return;
+
         MyInput();
         bars.SetHealth(bulletsLeft);
         //Set ammo display, if it exists :D
@@ -83,7 +88,8 @@ public class ProjectileGunTutorial : MonoBehaviour
         {
             //Set bullets shot to 0
             bulletsShot = 0;
-
+            aS.pitch = Random.Range(0.8f, 1.2f);
+            aS.PlayOneShot(aC);
             Shoot();
         }
     }

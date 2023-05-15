@@ -34,6 +34,9 @@ public class EnemyNew : MonoBehaviour
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
+    AudioSource aS;
+    public AudioClip aC,aC2;
+
     public float sightRange, attackRange;
     public bool playerInSightRange,playerInAttackRange,isDead,look;
     private void Start()
@@ -42,6 +45,7 @@ public class EnemyNew : MonoBehaviour
     }
     private void Awake()
     {
+        aS = GetComponent<AudioSource>();
         anim = GetComponentInChildren<Animator>();
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -49,6 +53,7 @@ public class EnemyNew : MonoBehaviour
     }
     private void OnEnable()
     {
+        aS.PlayOneShot(aC2);
         spawn.SetActive(true);
         Destroy(spawn, 1f);
     }
@@ -113,7 +118,7 @@ public class EnemyNew : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-
+            aS.PlayOneShot(aC);
             anim.Play(nombreAnimacionAtaque);
             Rigidbody rb = Instantiate(proyectil, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * force, ForceMode.Impulse);
@@ -135,15 +140,15 @@ public class EnemyNew : MonoBehaviour
         Debug.Log("Hit Enemy");
         if(health <= 0)
         {
-            look = false;
+            
             isDead = true;
             agent.SetDestination(transform.position);
             alreadyAttacked = true;
             anim.Play(nombreAnimacionMuerte);
-            if(b != null)
-            {
+           
+            
                 b.EnemyDefeated(this);
-            }
+            
             
             Invoke(nameof(DestroyEnemy), 5f);
         }

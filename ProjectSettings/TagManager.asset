@@ -9,6 +9,7 @@ TagManager:
   - Attack
   - Bullet
   - Obstacle
+  - End
   layers:
   - Default
   - TransparentFX
